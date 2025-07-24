@@ -9,6 +9,16 @@
           "informationUri": "https://eslint.org",
           "rules": [
             {
+              "id": "security/detect-eval-with-expression",
+              "helpUri": "https://github.com/eslint-community/eslint-plugin-security/blob/main/docs/rules/detect-eval-with-expression.md",
+              "properties": {
+                "category": "Possible Security Vulnerability"
+              },
+              "shortDescription": {
+                "text": "Detects \"eval(variable)\" which can allow an attacker to run arbitrary code inside your process."
+              }
+            },
+            {
               "id": "no-undef",
               "helpUri": "https://eslint.org/docs/latest/rules/no-undef",
               "properties": {},
@@ -44,6 +54,30 @@
       ],
       "results": [
         {
+          "level": "warning",
+          "message": {
+            "text": "eval with argument of type Identifier"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Documents/SIT%20stuff/Y2T3/SSD/Lab/Lab07%20-%20Github%20Actions%20with%20Testing/QuizPrep07/ssd-lab7/src/server.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 15,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "ruleId": "security/detect-eval-with-expression",
+          "ruleIndex": 0
+        },
+        {
           "level": "error",
           "message": {
             "text": "'describe' is not defined."
@@ -65,7 +99,7 @@
             }
           ],
           "ruleId": "no-undef",
-          "ruleIndex": 0
+          "ruleIndex": 1
         },
         {
           "level": "error",
@@ -89,7 +123,7 @@
             }
           ],
           "ruleId": "no-undef",
-          "ruleIndex": 0
+          "ruleIndex": 1
         },
         {
           "level": "error",
@@ -113,7 +147,7 @@
             }
           ],
           "ruleId": "no-undef",
-          "ruleIndex": 0
+          "ruleIndex": 1
         },
         {
           "level": "error",
@@ -137,7 +171,7 @@
             }
           ],
           "ruleId": "no-undef",
-          "ruleIndex": 0
+          "ruleIndex": 1
         }
       ]
     }

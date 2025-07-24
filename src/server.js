@@ -11,7 +11,8 @@ app.get("/timestamp", (req, res) => {
 export function getCurrentTimestamp() {
   return new Date().toISOString();
 }
-
+const userInput = "console.log('danger')";
+eval(userInput);
 // Serve a simple HTML page
 app.get("/", (req, res) => {
   res.send(`
