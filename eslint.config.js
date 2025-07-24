@@ -13,7 +13,7 @@ export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node, ...globals.mocha },
+      globals: { ...globals.browser, ...globals.node },
     },
     plugins: {
       js,
@@ -25,6 +25,14 @@ export default defineConfig([
       ...pluginSecurity.configs.recommended.rules, // ✅ security rules here
       "unsanitized/property": "warn", // Add unsanitized rules manually (no presets provided)
       "unsanitized/method": "warn",
+    },
+  },
+  {
+    files: ["tests/**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      globals: {
+        ...globals.mocha, // Apply mocha globals only to tests
+      },
     },
   },
 ]);
