@@ -1,0 +1,46 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  sonarcloud-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout code with full history for accurate blame data
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Crucial for SonarQube to correctly track new issues
+
+      # 2. Setup your build environment (e.g., Node.js, Java, etc.)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # 4. Run tests and generate coverage report (important for SonarQube)
+      - name: Run Tests & Generate Coverage
+        run: npm test -- --coverage
+
+      # 5. Run SonarCloud Scan
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to decorate PRs
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # These args are passed to the sonar-scanner
+          args: >
+            -Dsonar.projectKey=Your-Organization_your-project-key
+            -Dsonar.organization=your-organization-key
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sources=src
+            -Dsonar.tests=src
