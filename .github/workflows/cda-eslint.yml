@@ -1,9 +1,9 @@
 name: ESLint Code Analysis
 
 on: [push, pull_request]
-# permissions:
-#   contents: read
-#   security-events: write
+permissions:
+  contents: read
+  security-events: write
 jobs:
   eslint:
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
         run: npm install @microsoft/eslint-formatter-sarif --save-dev
 
       - name: Run ESLint with SARIF output
-        run: node node_modules/eslint/bin/eslint.js . --format @microsoft/eslint-formatter-sarif --output-file reports/eslint-results.sarif || true
+        run: npx eslint . --format @microsoft/eslint-formatter-sarif --output-file reports/eslint-results.sarif || true
 
       - name: Debug ESLint Output
         run: cat reports/eslint-results.sarif || echo "No SARIF report generated"
