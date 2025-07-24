@@ -1,9 +1,9 @@
-import express from 'express';
+import express from "express";
 
 const app = express();
 
 // Endpoint to return the current timestamp
-app.get('/timestamp', (req, res) => {
+app.get("/timestamp", (req, res) => {
   res.json({ timestamp: getCurrentTimestamp() });
 });
 
@@ -13,7 +13,7 @@ export function getCurrentTimestamp() {
 }
 
 // Serve a simple HTML page
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html lang="en">
@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 
 // Start the server
 const PORT = 3000;
-const server = app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
