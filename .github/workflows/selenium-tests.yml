@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 ## CHANGE THIS TO v3
+        uses: actions/checkout@v2
 
       - name: Cache Node.js modules
         uses: actions/cache@v4
@@ -32,7 +32,7 @@ jobs:
           ls -l
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 ## CHANGE THIS TO v4
         with:
           name: www-build
           path: www-build.tar.gz
