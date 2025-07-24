@@ -2,6 +2,21 @@ import express from "express";
 
 const app = express();
 
+// ✅ Dangerous user input (for eval)
+const userInput = "console.log('danger')";
+eval(userInput); // ⚠️ Triggers security warning
+
+// ✅ Dangerous innerHTML (unsanitized property)
+if (typeof document !== "undefined") {
+  document.body.innerHTML = "<img src=x onerror=alert('XSS1')>";
+}
+
+// ✅ Dangerous insertAdjacentHTML (unsanitized method)
+if (typeof document !== "undefined") {
+  const div = document.createElement("div");
+  div.insertAdjacentHTML("beforeend", "<img src=x onerror=alert('XSS2')>");
+}
+
 // Endpoint to return the current timestamp
 app.get("/timestamp", (req, res) => {
   res.json({ timestamp: getCurrentTimestamp() });
@@ -11,8 +26,7 @@ app.get("/timestamp", (req, res) => {
 export function getCurrentTimestamp() {
   return new Date().toISOString();
 }
-const userInput = "console.log('danger')";
-eval(userInput);
+
 // Serve a simple HTML page
 app.get("/", (req, res) => {
   res.send(`
@@ -31,6 +45,15 @@ app.get("/", (req, res) => {
         // Display browser information
         const userAgent = navigator.userAgent;
         document.getElementById('browser-info').textContent = 'Your browser: ' + userAgent;
+
+        // Dangerous: unsanitized DOM injection
+        const userInput = "<img src=x onerror=alert('inlineXSS')>";
+        document.body.innerHTML = userInput;
+
+        // Dangerous: insertAdjacentHTML
+        const div = document.createElement('div');
+        div.insertAdjacentHTML('beforeend', userInput);
+        document.body.appendChild(div);
 
         // Fetch and display the server timestamp
         fetch('/timestamp')
