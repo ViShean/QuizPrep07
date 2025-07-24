@@ -49,7 +49,7 @@ jobs:
     env:
       TEST_BASE_URL: http://testserver:3000
       SELENIUM_HOST: http://selenium:4444/wd/hub
-      SELENIUM_STATUS: http://selenium:4444/status
+      SELENIUM_STATUS: http://selenium:4444/status ##TODO: ADD THIS TO CHECK IF SELENIUM IS UP
 
     services:
       selenium:
@@ -97,10 +97,10 @@ jobs:
         run: |
           curl -f http://localhost:3000 || { echo "Server failed to start"; exit 1; }
 
-      - name: Wait for Selenium server to be up
+      - name: Wait for Selenium server to be up ##TODO: Change the SELENIUM_STATUS to the correct URL
         run: |
           for i in {1..10}; do
-            curl -s $SELENIUM_STATUS && break || sleep 3
+            curl -s $SELENIUM_STATUS && break || sleep 3 
           done
 
       - name: Run Selenium tests
