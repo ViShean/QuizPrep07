@@ -28,6 +28,9 @@ jobs:
       - name: Create reports directory
         run: mkdir -p reports
 
+      - name: Grant Execute Permissions
+        run: chmod +x node_modules/.bin/*
+
       - name: Install ESLint SARIF Formatter
         run: npm install @microsoft/eslint-formatter-sarif --save-dev
 
