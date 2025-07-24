@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "dependencies": {
+    "chromedriver": "^138.0.3",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1",
+    "selenium-webdriver": "^4.34.0"
+  },
+  "scripts": {
+    "test": "mocha tests/*.js"
+  }
+}
