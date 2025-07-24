@@ -6,17 +6,6 @@ const app = express();
 const userInput = "console.log('danger')";
 eval(userInput); // ⚠️ Triggers security warning
 
-// ✅ Dangerous innerHTML (unsanitized property)
-if (typeof document !== "undefined") {
-  document.body.innerHTML = "<img src=x onerror=alert('XSS1')>";
-}
-
-// ✅ Dangerous insertAdjacentHTML (unsanitized method)
-if (typeof document !== "undefined") {
-  const div = document.createElement("div");
-  div.insertAdjacentHTML("beforeend", "<img src=x onerror=alert('XSS2')>");
-}
-
 // Endpoint to return the current timestamp
 app.get("/timestamp", (req, res) => {
   res.json({ timestamp: getCurrentTimestamp() });
