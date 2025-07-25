@@ -14,7 +14,7 @@ const seleniumUrl =
 // Note: Start the nodejs server before running the test locally
 const serverUrl =
   environment === "github"
-    ? "http://testserver:3000"
+    ? "http://testserver:3000" //TODO: CHANGE PORT IF NEEDED
     : "http://host.docker.internal:3000"; // This is for running the selenium in docker
 // use "http://localhost:3000" if running locally without Docker
 //remember the docker command to run selenium given in lab sheet is inaccuarte, refer to notion

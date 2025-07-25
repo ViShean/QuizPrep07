@@ -1,4 +1,4 @@
-name: Node.js Selenium Testing
+name: Node.js Selenium Testing ##TODO: npm install selenium-webdriver
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
       - name: Install Node.js dependencies
         run: npm install
 
-      - name: Prepare artifacts
+      - name: Prepare artifacts ##TODO: INCLUDE ALL NECESSARY FILES
         run: |
           tar -czvf www-build.tar.gz ./package.json ./src/server.js tests
           ls -l
@@ -43,10 +43,10 @@ jobs:
     container:
       image: node:20
       ports:
-        - 3000:3000
+        - 3000:3000 ##TODO: CHANGE PORT IF NEEDED
       options: --network-alias=testserver ### this is the alias for the server in the network used in selenium-test
 
-    env:
+    env: ##TODO: CHANGE PORT IF NEEDED
       TEST_BASE_URL: http://testserver:3000
       SELENIUM_HOST: http://selenium:4444/wd/hub
       SELENIUM_STATUS: http://selenium:4444/status ##TODO: ADD THIS TO CHECK IF SELENIUM IS UP
@@ -93,7 +93,7 @@ jobs:
           nohup node src/server.js &  # Start the server in the background
           sleep 5  # Give the server some time to start
 
-      - name: Verify server is running
+      - name: Verify server is running ##TODO: CHANGE PORT IF NEEDED
         run: |
           curl -f http://localhost:3000 || { echo "Server failed to start"; exit 1; }
 
@@ -104,4 +104,4 @@ jobs:
           done
 
       - name: Run Selenium tests
-        run: node tests/SeleniumTest.mjs github
+        run: node tests/SeleniumTest.mjs github ##TODO: Change naeg of test file if needed
